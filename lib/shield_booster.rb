@@ -8,9 +8,9 @@ module DeepSpace
    attr_reader :boost, :uses
     
    def initialize(new_name, new_boost, new_uses)
-      @name = name
-      @boost = boost
-      @uses = uses
+      @name = new_name
+      @boost = new_boost
+      @uses = new_uses
    end
     
    def newCopy(s)

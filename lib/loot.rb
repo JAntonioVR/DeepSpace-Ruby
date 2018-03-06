@@ -6,14 +6,14 @@
 module DeepSpace
   class Loot
     
-    attr_reader :nSupllies, :nWeapons, :nShields, :nHangars, :nMedals
+    attr_reader :nSupplies, :nWeapons, :nShields, :nHangars, :nMedals
     
-    def initialize(new_nSupllies, new_nWeapons, new_nShields, new_nHangars, new_nMedals)
-      @nSupllies = nSupllies
-      @nWeapons = nWeapons
-      @nShields = nShields
-      @nHangars = nHangars
-      @nMedals = nMedals
+    def initialize(new_nSupplies, new_nWeapons, new_nShields, new_nHangars, new_nMedals)
+      @nSupplies = new_nSupplies
+      @nWeapons = new_nWeapons
+      @nShields = new_nShields
+      @nHangars = new_nHangars
+      @nMedals = new_nMedals
     end
     
     

@@ -3,6 +3,8 @@
 
 #encoding:utf-8
 
+require 'game_character.rb'
+
 module DeepSpace
   class Dice
     def initialize
@@ -45,22 +47,22 @@ module DeepSpace
     end
     
     def WhoStarts(new_nPlayers)
-      player = rand(nPlayers)
+      player = rand(new_nPlayers)
       return player
     end
     
     def firstShot
       prob = rand
       if prob < @FIRSTSHOTPROB
-        return GameCharacter.SPACESTATION
+        return GameCharacter::SPACESTATION
       else
-        return GameCharacter.ENEMYSTARSHIP
+        return GameCharacter::ENEMYSTARSHIP
       end
     end
     
     def spaceStationMoves(new_speed)
       prob = rand
-      return prob < speed
+      return prob < new_speed
     end
     
   end

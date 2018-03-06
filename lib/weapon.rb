@@ -9,9 +9,9 @@ module DeepSpace
     attr_reader :type, :uses
     
     def initialize(new_name, new_type, new_uses)
-      @name = name
-      @type = type
-      @uses = uses
+      @name = new_name
+      @type = new_type
+      @uses = new_uses
     end
    
     def newCopy(s)
@@ -27,7 +27,7 @@ module DeepSpace
     def useIt()
      if @uses > 0
        @uses = @uses - 1
-       return power
+       return @type.power
      else
        return 1.0
      end
