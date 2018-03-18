@@ -11,7 +11,7 @@ require 'dice.rb'
 require 'game_character.rb'
 require 'shot_result'
 
-module DeepSpace
+module Deepspace
 
   class TestP1
     
@@ -26,7 +26,7 @@ module DeepSpace
       i=0
       #LOOT:
       while i<3
-        botin=DeepSpace::Loot.new(i,i,i,i,i)
+        botin=Loot.new(i,i,i,i,i)
         print "\nBotin ",i+1
         print "\n  Numero de suministros: ", botin.nSupplies
         print "\n  Numero de armas: ", botin.nWeapons

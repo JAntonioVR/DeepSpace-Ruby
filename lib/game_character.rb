@@ -2,7 +2,7 @@
 
 #encoding:utf-8
 
-module DeepSpace
+module Deepspace
   
   module GameCharacter
     SPACESTATION=:spacestation

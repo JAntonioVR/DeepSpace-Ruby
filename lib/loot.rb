@@ -3,20 +3,29 @@
 
 #encoding:utf-8
 
-module DeepSpace
+module Deepspace
   class Loot
     
     attr_reader :nSupplies, :nWeapons, :nShields, :nHangars, :nMedals
     
-    def initialize(new_nSupplies, new_nWeapons, new_nShields, new_nHangars, new_nMedals)
-      @nSupplies = new_nSupplies
-      @nWeapons = new_nWeapons
-      @nShields = new_nShields
-      @nHangars = new_nHangars
-      @nMedals = new_nMedals
+    public
+    
+    def initialize(nsu, nw, nsh, nh, nm)
+      @nSupplies = nsu
+      @nWeapons = nw
+      @nShields = nsh
+      @nHangars = nh
+      @nMedals = nm
     end
     
-    
-    
+    def to_s
+        mensaje = "El numero de suplementos es "+@nSupplies+
+                ", el numero de armas es "+@nWeapons+
+                ", el numero de escudos es "+@nShields+
+                ", el numero de hangares es "+@nHangars+
+                " y el numero de medallas es "+@nMedals
+        return mensaje;
+    end
+
   end
 end

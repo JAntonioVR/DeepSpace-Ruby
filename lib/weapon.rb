@@ -3,7 +3,7 @@
 
 #encoding:utf-8
 
-module DeepSpace
+module Deepspace
   class Weapon
     
     attr_reader :type, :uses
