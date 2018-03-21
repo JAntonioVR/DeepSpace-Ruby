@@ -1,8 +1,10 @@
+#encoding:utf-8
+
 
 require_relative "EnemyToUI"
-require_relative "damage"
-require_relative "loot"
-require_relative "shot_result"
+require_relative "Damage"
+require_relative "Loot"
+require_relative "ShotResult"
 
 module Deepspace
   class EnemyStarShip

@@ -1,11 +1,11 @@
 
 require_relative "GameUniverseToUI"
 require_relative "GameStateController"
-require_relative "dice"
-require_relative "combat_result"
-require_relative "game_character"
-require_relative "shot_result"
-require_relative "space_station"
+require_relative "Dice"
+require_relative "CombatResult"
+require_relative "GameCharacter"
+require_relative "ShotResult"
+#require_relative "SpaceStation"
 require_relative "CardDealer"
 
 module Deepspace
@@ -95,9 +95,9 @@ module Deepspace
     end
     
     def to_s
-      return "\nEstación que tiene el turno: "+@currentStation.to_s+
+      return "\nEstacion que tiene el turno: "+@currentStation.to_s+
         "\nResto de estaciones: "+@spaceStations.to_s+"\nEnemigo: "+@currentEnemy.to_s+"Estado: "+gameState.state.to_s+
-        "\Número de turnos: "+@turns
+        "\Numero de turnos: "+@turns
     end
     
   end

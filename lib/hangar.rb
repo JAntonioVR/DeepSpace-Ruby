@@ -3,8 +3,8 @@
 
 #encoding:utf-8
 
-require_relative "weapon"
-require_relative "shield_booster"
+require_relative "Weapon"
+require_relative "ShieldBooster"
 
 module DeepSpace
   class Hangar

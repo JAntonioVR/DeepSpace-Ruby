@@ -3,6 +3,8 @@
 
 #encoding:utf-8
 
+require_relative "WeaponType"
+
 module Deepspace
   class Weapon
     

@@ -3,7 +3,7 @@
 # and open the template in the editor.
 
 
-require_relative "weapon_type"
+require_relative "WeaponType"
 require_relative "DamageToUI"
 
 module Deepspace
@@ -88,9 +88,9 @@ module Deepspace
     
     def to_s
       if @nWeapons==-1
-        return "Número de escudos: "+@nShields+"\nTipos de armas: "+@weapons.to_s
+        return "Numero de escudos: "+@nShields+"\nTipos de armas: "+@weapons.to_s
       else
-        return "Número de escudos: "+@nShields+"\nNúmero de armas: "+@nWeapons
+        return "Numero de escudos: "+@nShields+"\nNumero de armas: "+@nWeapons
       end
     end
 

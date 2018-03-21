@@ -3,7 +3,7 @@
 
 #encoding:utf-8
 
-require 'game_character.rb'
+require_relative 'GameCharacter.rb'
 
 module Deepspace
   class Dice
