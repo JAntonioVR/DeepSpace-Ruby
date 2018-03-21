@@ -8,13 +8,13 @@ require_relative "ShieldBooster"
 
 module DeepSpace
   class Hangar
-    attr_reader :maxElements, :shieldBooster, :weapons
+    attr_reader :maxElements, :shieldBoosters, :weapons
   
     public
   
     def initialize
         @maxElements=0
-        @shieldBooster=[]
+        @shieldBoosters=[]
         @weapons=[]
     end
     
@@ -24,7 +24,7 @@ module DeepSpace
     
     def newCopy(h)
       @maxElements=h.maxElements
-      @shieldBooster=h.shieldBooster
+      @shieldBoosters=h.shieldBoosters
       @weapons=h.weapons
     end
     
@@ -34,7 +34,7 @@ module DeepSpace
     
     private
     def spaceAvaliable
-      return (@shieldBooster.length+@weapons.length)<@maxElements
+      return (@shieldBoosters.length+@weapons.length)<@maxElements
     end
     
     public
@@ -43,24 +43,26 @@ module DeepSpace
     end
 
     def addShieldBooster(s)
-      @shieldBooster.push(s) if self.spaceAvaiable
+      @shieldBoosters.push(s) if self.spaceAvaiable
     end
     
     def removeWeapon(w)
-      if w<=@weapons.length
-          removed=@weapons.pop(w)
-          return remove
+      if w<@weapons.length
+          removed=@weapons[w]
+          @weapons.delete_at(w)
+          return removed
       else
-          return null
+          return nil
       end
     end
     
     def removeShieldBooster(s)
-      if s<=@shieldBooster.length
-        removed=@weapons.pop(s)
+      if s<@shieldBoosters.length
+        removed=@shieldBoosters[s]
+        @shieldBoosters.delete_at(s)
         return removed
       else
-        return null
+        return nil
       end
     end
     

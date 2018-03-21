@@ -21,6 +21,10 @@ module Deepspace
       @uses = s.uses
    end
    
+   def getUIversion
+     return ShieldToUI.new(self)
+   end
+   
    def useIt()
      if @uses > 0
        @uses = @uses - 1
