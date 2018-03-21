@@ -20,6 +20,10 @@ module Deepspace
       @uses = s.uses
     end
     
+    def getUIversion
+      return WeaponToUI.new(self)
+    end
+    
     def power()
       return @type.power
     end
