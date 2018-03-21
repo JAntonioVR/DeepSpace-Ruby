@@ -18,6 +18,10 @@ module Deepspace
       @nMedals = nm
     end
     
+    def getUIversion
+      return LootToUI.new(self)
+    end
+    
     def to_s
         mensaje = "El numero de suplementos es "+@nSupplies+
                 ", el numero de armas es "+@nWeapons+
