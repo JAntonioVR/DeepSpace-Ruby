@@ -6,26 +6,27 @@
 require_relative "Weapon"
 require_relative "ShieldBooster"
 
-module DeepSpace
+module Deepspace
   class Hangar
     attr_reader :maxElements, :shieldBoosters, :weapons
   
     public
   
-    def initialize
-        @maxElements=0
-        @shieldBoosters=[]
-        @weapons=[]
+    def initialize(capacity)
+        @maxElements=capacity
+        @shieldBoosters=Array.new
+        @weapons=Array.new
     end
     
-    def newHangar(c)
-      @maxElements=c
-    end
-    
-    def newCopy(h)
-      @maxElements=h.maxElements
-      @shieldBoosters=h.shieldBoosters
-      @weapons=h.weapons
+    def self.newCopy(h)
+      hangarAux=new(h.maxElements)
+      h.shieldBoosters.each { |potenciador|
+        hangarAux.shieldBoosters.push(potenciador)
+      }
+      h.weapons.each{ |arma|
+        hangarAux.weapons.push(arma)
+      }
+      return hangarAux
     end
     
     def getUIversion
@@ -33,17 +34,17 @@ module DeepSpace
     end
     
     private
-    def spaceAvaliable
+    def spaceAvailable
       return (@shieldBoosters.length+@weapons.length)<@maxElements
     end
     
     public
     def addWeapon(w)
-      @weapons.push(w) if self.spaceAvaiable
+      @weapons.push(w) if spaceAvailable
     end
 
     def addShieldBooster(s)
-      @shieldBoosters.push(s) if self.spaceAvaiable
+      @shieldBoosters.push(s) if spaceAvailable
     end
     
     def removeWeapon(w)
@@ -67,9 +68,17 @@ module DeepSpace
     end
     
     def to_s
-      return "Esta instancia de la clase Hangar contiene "+@weapons.to_s+
-             " armas y "+@shieldBoosters.to_s+" potenciadores de escudo y puede almacenar "
-              +@maxElements+ " elementos."
+      cad= "Armas: \n"
+      weapons.each{ |arma|
+        cad+=arma.to_s
+      }
+      cad+="\nPotenciadores de escudo:\n"
+      shieldBoosters.each{ |potenciador|
+        cad+=potenciador.to_s
+      }
+      cad+="\nPuede almacenar #{@maxElements} elementos."
+      
+      return cad
     end
     
   end

@@ -49,8 +49,7 @@ module Deepspace
     end
     
     def to_s
-      return "Daño: "+@damage.to_s+"\nBotín: "+@loot.to_s+"Nombre: "+@name+"\nEnergía del escudo: "+@shieldPower+
-        "\nPotencia de disparo: "+@ammoPower
+      return "Dano: "+@damage.to_s+"Botin: "+@loot.to_s+"Nombre: #{@name},  Energia del escudo: #{@shieldPower},  Potencia de disparo: #{@ammoPower}"
     end
     
   end

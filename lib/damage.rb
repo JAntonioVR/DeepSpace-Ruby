@@ -27,10 +27,8 @@ module Deepspace
       self.new(-1,s,wl)  
     end
     
-    def newCopy(d)
-      @nShields=d.nShields
-      @nWeapons=d.nWeapons
-      @weapons=d.weapons
+    def self.newCopy(d)
+      return new(d.nWeapons,d.nShields,d.weapons)
     end
     
     def getUIversion
@@ -39,13 +37,13 @@ module Deepspace
     
     def adjust(w,s)
       if @weapons==nil
-        return newNumericWeapons(w.length,s.lenght)
+        return Damage.newNumericWeapons(w.length,s.length)
       else
         vec=[]
         w.each { |weapon|  
           vec.push(weapon.type)
         }
-        return newSpecificWeapons(vec, s.length)
+        return Damage.newSpecificWeapons(vec, s.length)
       end
     end
     
@@ -66,7 +64,7 @@ module Deepspace
     end
     
     def hasNoEffect
-      if @nShields==0 && (@nWeapons==0 || @weapons.lenght==0)
+      if @nShields==0 && (@nWeapons==0 || @weapons.length==0)
         return true
       else
         return false
@@ -88,9 +86,19 @@ module Deepspace
     
     def to_s
       if @nWeapons==-1
-        return "Numero de escudos: "+@nShields+"\nTipos de armas: "+@weapons.to_s
+        cad= "Numero de escudos: #{@nShields}  Tipos de armas:"
+        @weapons.each { |tipo|
+          if(tipo==WeaponType::MISSILE)
+            cad=cad+"MISSILE  "
+          elsif(tipo==WeaponType::PLASMA)
+            cad=cad+"PLASMA  "
+          else
+            cad=cad+"LASER  "
+          end
+        }
+        return cad+"\n"
       else
-        return "Numero de escudos: "+@nShields+"\nNumero de armas: "+@nWeapons
+        return "Numero de escudos: #{@nShields}  Numero de armas: #{@nWeapons}\n"
       end
     end
 

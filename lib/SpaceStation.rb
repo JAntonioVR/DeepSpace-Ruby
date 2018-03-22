@@ -2,11 +2,11 @@
 #@author Pedro Pablo Ruiz Huertas y Juan Antonio Villegas Recio
 
 #encoding:utf-8
-requires_relative "supplies_package"
-requires_relative "hangar"
-requires_relative "damage"
+require_relative "SuppliesPackage"
+require_relative "Hangar"
+require_relative "Damage"
 
-module DeepSpace
+module Deepspace
   class SpaceStation
     @@MAXFUEL=100
     @@SHIELDLOSSPERUNITSHOT=0.1
@@ -18,14 +18,14 @@ module DeepSpace
     
     def initialize(n,s)
       @name=n
-      @ammoPower=s.getAmmoPower
-      @fuelUnits=s.getFuelUnits
+      @ammoPower=s.ammoPower
       @nMedals=0
-      @shieldPower=s.getShieldPower
-      @pendingDamage=damage.new
+      @shieldPower=s.shieldPower
+      @pendingDamage=nil
       @weapons=[]
       @shieldBoosters=[]
       @hangar=nil
+      assignFuelValue(s.fuelUnits)
     end
     
     private
@@ -48,20 +48,24 @@ module DeepSpace
     end
     
     def cleanUpMountedItems
-      i=0
-      until i=@weapons.length
-        @weapons.pop
-        i=i+1
-      end
-      i=0
-      until i=@shieldBoosters.length
-        @shieldBoosters.pop
-        i=i+1
-      end
+      aux=[]
+      @weapons.each { |arma|
+        if arma.uses==0
+          aux.push(arma)
+        end
+      }
+      aux.each { |obj| @weapons.delete(obj)  }
+      aux=[]
+      @shieldBoosters.each{ |potenciador|
+        if potenciador.uses==0
+          aux.push(potenciador)
+        end
+      }
+      aux.each { |obj| @shieldBoosters.delete(obj)}
     end
     
     def getSpeed
-      return @fuelUnits/@@MAXFUEL
+      return @fuelUnits.to_f/@@MAXFUEL.to_f
     end
     
     def discardHangar
@@ -98,7 +102,7 @@ module DeepSpace
       end
     end
     
-    def mountWeapons(i)
+    def mountWeapon(i)
       if @hangar!=nil
         aux=@hangar.weapons[i]
         @hangar.weapons.delete_at(i)
@@ -125,11 +129,11 @@ module DeepSpace
       end
     end
     
-    def receiveShieldBooser(s)
+    def receiveShieldBooster(s)
       if @hangar==nil
         return false
       else
-        @hangar.shieldBoosters.push(s)
+        return @hangar.addShieldBooster(s)
       end
     end
     
@@ -138,16 +142,20 @@ module DeepSpace
     end
     
     def receiveSupplies(s)
-      @ammoPower=@ammoPower+s.getAmmoPower
-      @fuelUnits=@fuelUnits+s.getFuelUnits
-      @shieldPower=@shieldPower+s.getShieldPower
+      @ammoPower=@ammoPower+s.ammoPower
+      @shieldPower=@shieldPower+s.shieldPower
+      if(@fuelUnits+s.fuelUnits>@@MAXFUEL)
+        @fuelUnits=@@MAXFUEL
+      else
+        @fuelUnits=@fuelUnits+s.fuelUnits
+      end
     end
     
     def receiveWeapon(w)
       if @hangar==nil
         return false
       else
-        @hangar.weapons.push(w)
+        return @hangar.addWeapon(w)
       end
     end
     
@@ -156,7 +164,7 @@ module DeepSpace
     end
     
     def setPendingDamage(d)
-      return @pendingDamage=d.adjust(@weapons, @shieldBoosters)
+      @pendingDamage=d.adjust(@weapons, @shieldBoosters)
     end
     
     def validState
@@ -164,10 +172,23 @@ module DeepSpace
     end
     
     def to_s
-      return "La estacion espacial tiene: \n*Una potencia de disparo de "+@ammoPower+
-              "\n*"+@fuelUnits+" Unidades de combustible \n*"+@nMedals+" medallas \n*Una potencia de escudo de "+
-              @shieldPower + "\nSu nombre es: " + @name + "\nARMAS:\n"+@weapons.to_s+"\nPOTENCIADORES DE ESCUDO:\n"
-              +@shieldBoosters.to_s+"\nDaño pendiente: "+@pendingDamage.to_s+"\nHangar: "+@hangar.to_s;
+      cad= "La estacion espacial tiene: \n*Una potencia de disparo de #{@ammoPower}\n*#{@fuelUnits} Unidades de combustible\n*"+
+        "#{@nMedals} medallas\n*Una potencia de escudo de #{@shieldPower}\nSu nombre es: #{@name}"+
+        "\nARMAS:\n"
+        @weapons.each{ |arma|
+        cad+=arma.to_s
+      }
+      cad+="\nPOTENCIADORES DE ESCUDO:\n"
+        @shieldBoosters.each{ |potenciador|
+        cad+=potenciador.to_s
+      }
+      cad+="\nDano pendiente:"+@pendingDamage.to_s+"\nHangar: \n"
+      if(@hangar!=nil)
+        cad+=@hangar.to_s
+      else
+        cad+="No tiene\n"
+      end
+      return cad
     end
     
   end

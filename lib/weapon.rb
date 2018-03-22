@@ -37,7 +37,19 @@ module Deepspace
      else
        return 1.0
      end
-   end
+    end
+    
+    def to_s
+      cad= "Nombre: #{@name}, Usos: #{@uses}"
+      if(@type==WeaponType::MISSILE)
+        cad=cad+", Tipo: MISSILE\n"
+      elsif(@type==WeaponType::PLASMA)
+        cad=cad+", Tipo: PLASMA\n"
+      else
+        cad=cad+", Tipo: LASER\n"
+      end
+      return cad
+    end
     
   end
 end

@@ -35,8 +35,7 @@ module Deepspace
    end
    
    def to_s
-     return "Nombre: "+@name+"\nAumento: "+@boost+"\nUsos: "+@uses+"\nArmas\n: "+@weapons.to_s+
-       "\nPotenciadores de escudo:\n"+@shieldBoosters.to_s
+     return "Nombre: #{@name}  Aumento: #{@boost}  Usos: #{@uses}\n"
    end
    
    

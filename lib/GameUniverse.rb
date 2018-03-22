@@ -5,7 +5,7 @@ require_relative "Dice"
 require_relative "CombatResult"
 require_relative "GameCharacter"
 require_relative "ShotResult"
-#require_relative "SpaceStation"
+require_relative "SpaceStation"
 require_relative "CardDealer"
 
 module Deepspace

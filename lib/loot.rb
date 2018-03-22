@@ -23,12 +23,7 @@ module Deepspace
     end
     
     def to_s
-        mensaje = "El numero de suplementos es "+@nSupplies+
-                ", el numero de armas es "+@nWeapons+
-                ", el numero de escudos es "+@nShields+
-                ", el numero de hangares es "+@nHangars+
-                " y el numero de medallas es "+@nMedals
-        return mensaje;
+        return "Suplementos: #{@nSupplies}, Armas: #{@nWeapons}, Escudos: #{@nShields}, Hangares: #{@nHangars}, Medallas: #{@nMedals}\n"
     end
 
   end
