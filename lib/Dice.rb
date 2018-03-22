@@ -7,6 +7,9 @@ require_relative 'GameCharacter.rb'
 
 module Deepspace
   class Dice
+    
+    public
+    
     def initialize
       @NHANGARSPROB = 0.25;
       @NSHIELDSPROB = 0.25;

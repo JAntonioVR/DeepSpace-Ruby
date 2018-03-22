@@ -30,7 +30,7 @@ module Deepspace
       hangar1.addWeapon(arma3)
       hangar1.addShieldBooster(potenciador3)
       
-      #puts hangar1.to_s
+      puts hangar1.to_s
       
       #puts"\n\nConstruimos una copia y le eliminamos algunos items:"
       
@@ -41,19 +41,19 @@ module Deepspace
       #puts hangar2.to_s
       
       puts "\n\nPrueba de Damage\n"
-      damage1=Damage.newNumericWeapons(0,4)#0 armas y 4 escudos
-      wl=[WeaponType::PLASMA,WeaponType::LASER]
+      damage1=Damage.newNumericWeapons(5,4)#0 armas y 4 escudos
+      wl=[WeaponType::PLASMA,WeaponType::MISSILE,WeaponType::PLASMA]
       damage2=Damage.newSpecificWeapons(wl,2)#Vector de tipos y 2 escudos
       
-      #puts damage1.to_s
-      #puts damage2.to_s
+      puts damage1.to_s
+      puts damage2.to_s
 
       damage3=damage1.adjust(hangar1.weapons, hangar1.shieldBoosters)
-      #puts "\ndamage1 ajustado:\n"
-      #puts damage3.to_s
+      puts "\ndamage1 ajustado:\n"
+      puts damage3.to_s
       damage3=damage2.adjust(hangar1.weapons, hangar1.shieldBoosters)
-      #puts "\ndamage2 ajustado:\n"
-      #puts damage3.to_s
+      puts "\ndamage2 ajustado:\n"
+      puts damage3.to_s
       
       damage1.discardWeapon(arma1)
       damage2.discardWeapon(arma1)#Si se cambia por arma3 no hace nada
@@ -105,7 +105,7 @@ module Deepspace
       spaceStation.move
       spaceStation.receiveSupplies(suppliesPackage1)
       spaceStation.move
-      puts spaceStation.to_s
+      #puts spaceStation.to_s
       if(spaceStation.validState)
         #puts"\nLa estacion esta bien"
       end
@@ -120,28 +120,23 @@ module Deepspace
       spaceStation.mountWeapon(0)
       spaceStation.mountShieldBooster(0)
       spaceStation.mountShieldBooster(0)
-      puts"\n\nDespues de montarlo todo:\n"
-      puts spaceStation.to_s
+      #puts"\n\nDespues de montarlo todo:\n"
+      #puts spaceStation.to_s
       if(spaceStation.receiveShieldBooster(potenciador3) && spaceStation.receiveWeapon(arma4))
-        puts"\n\nDespues de anadir un potenciador y un arma\n"
-        puts spaceStation.to_s
+        #puts"\n\nDespues de anadir un potenciador y un arma\n"
+        #puts spaceStation.to_s
         spaceStation.discardWeaponInHangar(0)
         spaceStation.discardShieldBoosterInHangar(0)
-        puts"\n\nDespues de unos descartes en el hangar:\n"
-        puts spaceStation.to_s
+        #puts"\n\nDespues de unos descartes en el hangar:\n"
+        #puts spaceStation.to_s
       end
-      
-      
-      
-      puts"\n\nPrueba de GameUniverse"
-      gameUniverse=GameUniverse.new
       
       spaceStation.weapons.at(0).useIt
       spaceStation.weapons.at(0).useIt
       spaceStation.shieldBoosters.at(0).useIt
       spaceStation.cleanUpMountedItems
-      puts"\n\nDespues de unos usos y una limpieza:"
-      puts spaceStation.to_s
+      #puts"\n\nDespues de unos usos y una limpieza:"
+      #puts spaceStation.to_s
     end
   end
   

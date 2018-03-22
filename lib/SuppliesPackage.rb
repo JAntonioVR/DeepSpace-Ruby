@@ -10,16 +10,16 @@ module Deepspace
     
     public
     
-    def initialize(new_ammoPower, new_fuelUnits, new_shieldPower)
-      @ammoPower = new_ammoPower
-      @fuelUnits = new_fuelUnits
-      @shieldPower = new_shieldPower
+    def initialize(ap, fu, sp)
+      @ammoPower = ap
+      @fuelUnits = fu
+      @shieldPower = sp
     end
     
     def newCopy(s)
-      @ammoPower = s.ammoPower
-      @fuelUnits = s.fuelUnits
-      @shieldPower = s.shieldPower
+      @ammoPower = s.ap
+      @fuelUnits = s.fu
+      @shieldPower = s.sp
     end
     
     def to_s

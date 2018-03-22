@@ -10,10 +10,10 @@ module Deepspace
     
     attr_reader :type, :uses
     
-    def initialize(new_name, new_type, new_uses)
-      @name = new_name
-      @type = new_type
-      @uses = new_uses
+    def initialize(n, t, u)
+      @name = n
+      @type = t
+      @uses = u
     end
    
     def newCopy(s)

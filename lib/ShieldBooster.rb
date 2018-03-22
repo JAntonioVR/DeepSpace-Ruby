@@ -9,10 +9,10 @@ module Deepspace
    
    public
    
-   def initialize(new_name, new_boost, new_uses)
-      @name = new_name
-      @boost = new_boost
-      @uses = new_uses
+   def initialize(n, b, u)
+      @name = n
+      @boost = b
+      @uses = u
    end
     
    def newCopy(s)
