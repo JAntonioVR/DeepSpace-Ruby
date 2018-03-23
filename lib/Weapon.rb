@@ -16,7 +16,7 @@ module Deepspace
       @uses = u
     end
    
-    def newCopy(s)
+    def self.newCopy(s)
       @name = s.name
       @type = s.type
       @uses = s.uses
