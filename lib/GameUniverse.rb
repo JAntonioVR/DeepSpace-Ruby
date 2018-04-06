@@ -23,15 +23,18 @@ module Deepspace
       @currentStationIndex=-1
       @dice=Dice.new
       @currentStation=nil
-      @spaceStations=[]
+      @spaceStations=nil
       @currentEnemy=nil
     end
     
     def combat
-      
+      state=@gameState.state
+      if(state==GameState::BEFORECOMBAT || state==GameState::INIT)
+        
+      end
     end
     
-    def combat(station, enemy)
+    def combatGo(station, enemy)
       
     end
    
@@ -75,7 +78,25 @@ module Deepspace
     end
     
     def init(names)
-      
+      state=@gameState.state
+      if(state==GameState::CANNOTPLAY)
+        @spaceStations=[]
+        dealer=CardDealer.instance
+        for i in 0..(names.length-1)
+          supplies=dealer.nextSuppliesPackage
+          station=SpaceStation.new(names[i],supplies)
+          nh=@dice.initWithNHangars
+          nw=@dice.initWithNWeapons
+          ns=@dice.initWithNShields
+          l=Loot.new(0,nw,ns,ns,nh)
+          station.setLoot(l)
+          @spaceStations.push(station)
+        end
+        @currentStationIndex=@dice.whoStarts(names.lenght)
+        @currentStation=@spaceStations[@currentStationIndex]
+        @currentEnemy=dealer.nextEnemy
+        @gameState.next(@turns,names.length)
+      end
     end
     
     def mountShieldBooster(i)
@@ -91,7 +112,20 @@ module Deepspace
     end
     
     def nextTurn
-      
+      gameState=@gameState.state
+      if(gameState==GameState::AFTERCOMBAT)
+        stationState=@currentStation.validState
+        if(stationState)
+          @currentStation=@spaceStations[(@currentStationIndex+1)%@spaceStations.length]
+          @currentStation.cleanUpMountedItems
+          dealer=CardDealer.instance
+          @currentEnemy=dealer.nextEnemy
+          @gameState.next(@turns, @spaceStations.length)
+          return true
+        end
+        return false
+      end
+      return false
     end
     
     def to_s
