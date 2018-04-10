@@ -136,7 +136,13 @@ module Deepspace
       spaceStation.shieldBoosters.at(0).useIt
       spaceStation.cleanUpMountedItems
       #puts"\n\nDespues de unos usos y una limpieza:"
-      #puts spaceStation.to_s
+      puts spaceStation.to_s
+      
+      puts "\nPrueba de GameUniverse"
+      gameUniverse=GameUniverse.new
+      nombres=["Carlos","Juan","Rafa","Pelacables","Jorge"]
+      gameUniverse.init(nombres)
+      
     end
   end
   

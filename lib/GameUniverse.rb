@@ -30,12 +30,47 @@ module Deepspace
     def combat
       state=@gameState.state
       if(state==GameState::BEFORECOMBAT || state==GameState::INIT)
-        
+        return combatGo(@currentStation,@currentEnemy)
+      else
+        return CombatResult::NOCOMBAT
       end
     end
     
     def combatGo(station, enemy)
-      
+      ch=@dice.firstShot
+      if(ch==GameCharacter::ENEMYSTARSHIP)
+        fire=@currentEnemy.fire
+        result=@currentStation.receiveShot(fire)
+        if(result==ShotResult::RESIST)
+          fire=@currentStation.fire
+          result=@currenEnemy.receiveShot(fire)
+          enemyWins=(result==ShotResult::RESIST)
+        else
+          enemyWins=true
+        end
+      else
+        fire=@currentStation.fire
+        result=@currenEnemy.receiveShot(fire)
+        enemyWins=(result==ShotResult::RESIST)
+      end
+      if enemyWins
+        s=@currentStation.getSpeed
+        moves=@dice.spaceStationMoves(s)
+        if(!moves)
+          damage=@currentEnemy.damage
+          @currentStation.setPendingDamage(damage)
+          combatResult=CombatResult::ENEMYWINS
+        else
+          @currentStation.move
+          combatResult=CombatResult::STATIONSCAPES
+        end
+      else
+        aLoot=@currentEnemy.loot
+        @currentStation.setLoot(aLoot)
+        combatResult=CombatResult::STATIONWINS
+      end
+      @gameState.next(@turns, @spaceStations.length)
+      return combatResult
     end
    
     def discardHangar

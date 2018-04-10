@@ -17,9 +17,9 @@ module Deepspace
     end
     
     def self.newCopy(s)
-      @ammoPower = s.ap
-      @fuelUnits = s.fu
-      @shieldPower = s.sp
+      @ammoPower = s.ammoPower
+      @fuelUnits = s.fuelUnits
+      @shieldPower = s.shieldPower
     end
     
     def to_s

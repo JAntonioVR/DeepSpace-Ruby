@@ -137,7 +137,7 @@ module Deepspace
       end
     end
     
-    def receiveShot
+    def receiveShot(shot)
       
     end
     
@@ -159,7 +159,7 @@ module Deepspace
       end
     end
     
-    def setLoot
+    def setLoot(loot)
       
     end
     
