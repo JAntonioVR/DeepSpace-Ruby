@@ -38,7 +38,7 @@ module Deepspace
     end
     
     def cleanPendingDamage
-      @pendingDamage=null if @pendingDamage.hasNoEffect
+      @pendingDamage=nil if @pendingDamage.hasNoEffect
     end
     
     public
@@ -83,7 +83,13 @@ module Deepspace
     end
     
     def discardWeapon(i)
-      
+      if i>=0 && i<@weapons.length
+        w=@weapons.remove(i)
+        if @pendingDamage!=nil
+          @pendingDamage.discardWeapon(w)
+          cleanPendingDamage
+        end
+      end
     end
     
     def discardWeaponInHangar(i)
