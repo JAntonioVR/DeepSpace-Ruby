@@ -49,7 +49,7 @@ module Deepspace
       end
     end
     
-    def WhoStarts(new_nPlayers)
+    def whoStarts(new_nPlayers)
       player = rand(new_nPlayers)
       return player
     end

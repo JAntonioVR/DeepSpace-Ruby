@@ -20,12 +20,8 @@ module Deepspace
       @shieldPower=s
     end
     
-    def new_copy(e)
-      @damage=e.damage
-      @loot=e.loot
-      @ammoPower=e.ammoPower
-      @name=e.name
-      @shieldPower=s.shieldPower
+    def self.newCopy(e)
+      new(e.damage,e.loot,e.ammoPower,e.name,e.shieldPower)
     end
     
     def getUIversion

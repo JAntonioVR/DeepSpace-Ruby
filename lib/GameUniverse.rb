@@ -119,8 +119,6 @@ module Deepspace
         dealer=CardDealer.instance
         for i in 0..(names.length-1)
           supplies=dealer.nextSuppliesPackage
-          puts "PAQUETE:"
-          puts supplies.to_s
           station=SpaceStation.new(names[i],supplies)
           nh=@dice.initWithNHangars
           nw=@dice.initWithNWeapons
@@ -129,7 +127,7 @@ module Deepspace
           station.setLoot(l)
           @spaceStations.push(station)
         end
-        @currentStationIndex=@dice.whoStarts(names.lenght)
+        @currentStationIndex=@dice.whoStarts(names.length)
         @currentStation=@spaceStations[@currentStationIndex]
         @currentEnemy=dealer.nextEnemy
         @gameState.next(@turns,names.length)
