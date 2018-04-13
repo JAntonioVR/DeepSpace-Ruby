@@ -17,14 +17,12 @@ module Deepspace
     end
     
     def self.newCopy(s)
-      @ammoPower = s.ammoPower
-      @fuelUnits = s.fuelUnits
-      @shieldPower = s.shieldPower
+      new(s.ammoPower,s.fuelUnits, s.shieldPower)
     end
     
     def to_s
-      return "Potencia de disparo: "+@ammoPower+"\nUnidades de combustible: "+@fuelUnits+
-        "\nPotencia de escudo: "+@shieldPower
+      return "Potencia de disparo: #{@ammoPower}\nUnidades de combustible: "+@fuelUnits.to_s+
+        "\nPotencia de escudo: "+@shieldPower.to_s
     end
     
   end
