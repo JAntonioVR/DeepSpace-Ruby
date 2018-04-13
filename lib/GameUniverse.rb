@@ -56,7 +56,6 @@ module Deepspace
       if enemyWins
         s=@currentStation.getSpeed
         moves=@dice.spaceStationMoves(s)
-        puts @currentEnemy.to_s
         if(!moves)
           damage=@currentEnemy.damage
           @currentStation.setPendingDamage(damage)
@@ -132,6 +131,9 @@ module Deepspace
         @currentStation=@spaceStations[@currentStationIndex]
         @currentEnemy=dealer.nextEnemy
         @gameState.next(@turns,names.length)
+      end
+      @spaceStations.each do |estacion|
+        puts estacion.to_s
       end
     end
     

@@ -145,6 +145,7 @@ module Deepspace
     
     def fire
       factor=1
+      print @weapons.to_s
       for i in 0..@weapons.length
         w=@weapons.at(i)
         factor=factor*w.useIt  

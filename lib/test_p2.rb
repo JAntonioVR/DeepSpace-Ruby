@@ -140,10 +140,10 @@ module Deepspace
       
       puts "\nPrueba de GameUniverse"
       gameUniverse=GameUniverse.new
-      nombres=["Carlos","Juan","Rafa","Antonio","Jorge"]
+      nombres=["Carlos","Juan"]
       gameUniverse.init(nombres)
-      
       gameUniverse.combat
+      
       
     end
   end
