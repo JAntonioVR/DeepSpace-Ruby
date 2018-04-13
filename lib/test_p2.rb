@@ -143,6 +143,8 @@ module Deepspace
       nombres=["Carlos","Juan","Rafa","Antonio","Jorge"]
       gameUniverse.init(nombres)
       
+      gameUniverse.combat
+      
     end
   end
   
