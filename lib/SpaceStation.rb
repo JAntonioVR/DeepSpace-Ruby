@@ -125,8 +125,22 @@ module Deepspace
       end
     end
     
+    def fire
+      factor=1
+      for i in 0..@weapons.length
+        w=@weapons.at(i)
+        factor=factor*w.useIt  
+      end
+      return @ammoPower*factor
+    end
+    
     def protection
-      
+      factor=1
+      for i in 0..@shieldBoosters.length
+        s=@shieldBoosters.at(i)
+        factor=factor*s.useIt  
+      end
+      return @shieldPower*factor
     end
     
     def receiveHangar(h)
@@ -143,6 +157,7 @@ module Deepspace
       end
     end
     
+<<<<<<< HEAD
     def fire
       factor=1
       print @weapons.to_s
@@ -153,8 +168,17 @@ module Deepspace
       return @ammoPower*factor
     end
     
+=======
+>>>>>>> 18eb021669a5ffd14348e30afebf67baf08fa59c
     def receiveShot(shot)
-      
+      myProtection=protection
+      @shieldpower=@shieldpower-@@SHIELDLOSSPERUNITSHOT*shot
+      @shieldpower=[0.0, @shieldpower].max
+      if @shieldpower>0.0
+        return ShotResult::RESIST
+      else
+        return ShotResult::DONOTRESIST
+      end  
     end
     
     def receiveSupplies(s)
@@ -176,7 +200,33 @@ module Deepspace
     end
     
     def setLoot(loot)
+      dealer.instance
+      h=loot.nHangars
+      if h>0
+        hangar=dealer.nextHangar
+        receiveHangar(hangar)
+      end
       
+      elements=loot.getNSupplies
+      for i in 1..elements
+        sup=dealer.nextSupplies
+        receiveSupplies(sup)
+      end
+      
+      elements=loot.getNWeapons
+      for i in 1..elements
+        weap=dealer.nextWeapon
+        receiveWeapons(weap)
+      end
+      
+      elements=loot.getNShields
+      for i in 1..elements
+        sh=dealer.nextShieldBooster
+        receiveShieldBooster(sh)
+      end
+      
+      medals=loot.getNMedals
+      @nMedals=@nMedals+medals
     end
     
     def setPendingDamage(d)
