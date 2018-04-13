@@ -187,7 +187,33 @@ module Deepspace
     end
     
     def setLoot(loot)
+      dealer.instance
+      h=loot.nHangars
+      if h>0
+        hangar=dealer.nextHangar
+        receiveHangar(hangar)
+      end
       
+      elements=loot.getNSupplies
+      for i in 1..elements
+        sup=dealer.nextSupplies
+        receiveSupplies(sup)
+      end
+      
+      elements=loot.getNWeapons
+      for i in 1..elements
+        weap=dealer.nextWeapon
+        receiveWeapons(weap)
+      end
+      
+      elements=loot.getNShields
+      for i in 1..elements
+        sh=dealer.nextShieldBooster
+        receiveShieldBooster(sh)
+      end
+      
+      medals=loot.getNMedals
+      @nMedals=@nMedals+medals
     end
     
     def setPendingDamage(d)
