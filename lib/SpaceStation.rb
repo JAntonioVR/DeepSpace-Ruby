@@ -143,6 +143,15 @@ module Deepspace
       end
     end
     
+    def fire
+      factor=1
+      for i in 0..@weapons.length
+        w=@weapons.at(i)
+        factor=factor*w.useIt  
+      end
+      return @ammoPower*factor
+    end
+    
     def receiveShot(shot)
       
     end
