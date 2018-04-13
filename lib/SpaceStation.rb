@@ -125,8 +125,22 @@ module Deepspace
       end
     end
     
+    def fire
+      factor=1
+      for i in 0..@weapons.length
+        w=@weapons.at(i)
+        factor=factor*w.useIt  
+      end
+      return @ammoPower*factor
+    end
+    
     def protection
-      
+      factor=1
+      for i in 0..@shieldBoosters.length
+        s=@shieldBoosters.at(i)
+        factor=factor*s.useIt  
+      end
+      return @shieldPower*factor
     end
     
     def receiveHangar(h)
@@ -143,17 +157,15 @@ module Deepspace
       end
     end
     
-    def fire
-      factor=1
-      for i in 0..@weapons.length
-        w=@weapons.at(i)
-        factor=factor*w.useIt  
-      end
-      return @ammoPower*factor
-    end
-    
     def receiveShot(shot)
-      
+      myProtection=protection
+      @shieldpower=@shieldpower-@@SHIELDLOSSPERUNITSHOT*shot
+      @shieldpower=[0.0, @shieldpower].max
+      if @shieldpower>0.0
+        return ShotResult::RESIST
+      else
+        return ShotResult::DONOTRESIST
+      end  
     end
     
     def receiveSupplies(s)
