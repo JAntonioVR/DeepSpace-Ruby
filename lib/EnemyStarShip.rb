@@ -13,15 +13,15 @@ module Deepspace
     public
     
     def initialize(n,a,s,l,d)
-      @damage=d
-      @loot=l
-      @ammoPower=a
       @name=n
+      @ammoPower=a
       @shieldPower=s
+      @loot=l
+      @damage=d
     end
     
     def self.newCopy(e)
-      new(e.damage,e.loot,e.ammoPower,e.name,e.shieldPower)
+      new(e.name,e.ammoPower,e.shieldPower,e.loot,e.damage)
     end
     
     def getUIversion
@@ -45,7 +45,7 @@ module Deepspace
     end
     
     def to_s
-      return "Dano: "+@damage.to_s+"\nBotin: "+@loot.to_s+"\nNombre: #{@name}, \nEnergia del escudo: #{@shieldPower},  \nPotencia de disparo: #{@ammoPower}"
+      return "\nNombre: #{@name}, \nDano: "+@damage.to_s+"\nBotin: "+@loot.to_s+"\nEnergia del escudo: #{@shieldPower} \nPotencia de disparo: #{@ammoPower}\n\n"
     end
     
   end

@@ -4,6 +4,7 @@
 
 
 require_relative "WeaponType"
+require_relative "Weapon"
 require_relative "DamageToUI"
 
 module Deepspace
@@ -20,7 +21,7 @@ module Deepspace
     end
     
     def self.newNumericWeapons(w,s)
-      self.new(w,s,nil)
+      self.new(w,s,[])
     end
     
     def self.newSpecificWeapons(wl,s)
@@ -98,7 +99,7 @@ module Deepspace
     
     def to_s
       if @nWeapons==-1
-        cad= "Numero de escudos: #{@nShields}  Tipos de armas:"
+        cad= "\nNumero de escudos: #{@nShields}  Tipos de armas:"
         @weapons.each { |tipo|
           if(tipo==WeaponType::MISSILE)
             cad=cad+"MISSILE  "
@@ -110,7 +111,7 @@ module Deepspace
         }
         return cad+"\n"
       else
-        return "Numero de escudos: #{@nShields}  Numero de armas: #{@nWeapons}\n"
+        return "\nNumero de escudos: #{@nShields}  Numero de armas: #{@nWeapons}\n"
       end
     end
 

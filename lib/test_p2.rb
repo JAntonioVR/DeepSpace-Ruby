@@ -138,12 +138,15 @@ module Deepspace
       #puts"\n\nDespues de unos usos y una limpieza:"
       puts spaceStation.to_s
       
+      puts "===================================================================="
       puts "\nPrueba de GameUniverse"
       gameUniverse=GameUniverse.new
       nombres=["Carlos","Juan"]
       gameUniverse.init(nombres)
+      puts gameUniverse.to_s
       gameUniverse.combat
-      
+      puts "===================================================================="
+      puts gameUniverse.to_s
       
     end
   end

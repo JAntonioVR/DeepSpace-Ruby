@@ -5,7 +5,7 @@
 
 module Deepspace
   class ShieldBooster
-   attr_reader :boost, :uses
+   attr_reader :boost, :uses, :name
    
    public
    

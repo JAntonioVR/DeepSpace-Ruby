@@ -7,6 +7,7 @@ require_relative "GameCharacter"
 require_relative "ShotResult"
 require_relative "SpaceStation"
 require_relative "CardDealer"
+require_relative "EnemyStarShip"
 
 module Deepspace
   
@@ -23,7 +24,7 @@ module Deepspace
       @currentStationIndex=-1
       @dice=Dice.new
       @currentStation=nil
-      @spaceStations=nil
+      @spaceStations=Array.new
       @currentEnemy=nil
     end
     
@@ -39,19 +40,19 @@ module Deepspace
     def combatGo(station, enemy)
       ch=@dice.firstShot
       if(ch==GameCharacter::ENEMYSTARSHIP)
-        fire=@currentEnemy.fire
-        result=@currentStation.receiveShot(fire)
-        if(result==ShotResult::RESIST)
-          fire=@currentStation.fire
-          result=@currenEnemy.receiveShot(fire)
-          enemyWins=(result==ShotResult::RESIST)
-        else
-          enemyWins=true
-        end
+          fire=@currentEnemy.fire
+          result=@currentStation.receiveShot(fire)
+            if(result==ShotResult::RESIST)
+              fire=@currentStation.fire
+              result=@currenEnemy.receiveShot(fire)
+              enemyWins=(result==ShotResult::RESIST)
+            else
+              enemyWins=true
+            end
       else
-        fire=@currentStation.fire
-        result=@currenEnemy.receiveShot(fire)
-        enemyWins=(result==ShotResult::RESIST)
+          fire=@currentStation.fire
+          result=@currentEnemy.receiveShot(fire)
+          enemyWins=(result==ShotResult::RESIST)
       end
       if enemyWins
         s=@currentStation.getSpeed
@@ -70,6 +71,7 @@ module Deepspace
         combatResult=CombatResult::STATIONWINS
       end
       @gameState.next(@turns, @spaceStations.length)
+      puts combatResult
       return combatResult
     end
    
@@ -115,7 +117,6 @@ module Deepspace
     def init(names)
       state=@gameState.state
       if(state==GameState::CANNOTPLAY)
-        @spaceStations=[]
         dealer=CardDealer.instance
         for i in 0..(names.length-1)
           supplies=dealer.nextSuppliesPackage
@@ -135,6 +136,7 @@ module Deepspace
       @spaceStations.each do |estacion|
         puts estacion.to_s
       end
+      puts @currentEnemy.to_s
     end
     
     def mountShieldBooster(i)
@@ -167,9 +169,12 @@ module Deepspace
     end
     
     def to_s
-      return "\nEstacion que tiene el turno: "+@currentStation.to_s+
-        "\nResto de estaciones: "+@spaceStations.to_s+"\nEnemigo: "+@currentEnemy.to_s+"Estado: "+gameState.state.to_s+
-        "\Numero de turnos: "+@turns
+      cad="\nEstacion que tiene el turno: "+@currentStation.to_s+"\n\nResto de estaciones:"
+      @spaceStations.each{ |estacion|
+        cad+=estacion.to_s
+      }
+      cad+="\n\nEnemigo: "+@currentEnemy.to_s+"Estado: "+@gameState.state.to_s+"\nNumero de turnos:+#{@turns}."
+      return cad
     end
     
   end

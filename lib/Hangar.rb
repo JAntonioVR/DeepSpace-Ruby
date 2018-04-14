@@ -3,6 +3,7 @@
 
 #encoding:utf-8
 
+require_relative "WeaponType"
 require_relative "Weapon"
 require_relative "ShieldBooster"
 
@@ -48,23 +49,11 @@ module Deepspace
     end
     
     def removeWeapon(w)
-      if w<@weapons.length
-          removed=@weapons[w]
-          @weapons.delete_at(w)
-          return removed
-      else
-          return nil
-      end
+      return weapons.delete_at(w)
     end
     
     def removeShieldBooster(s)
-      if s<@shieldBoosters.length
-        removed=@shieldBoosters[s]
-        @shieldBoosters.delete_at(s)
-        return removed
-      else
-        return nil
-      end
+      return shieldBoosters.delete_at(s)
     end
     
     def to_s

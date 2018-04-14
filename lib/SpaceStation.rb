@@ -5,6 +5,11 @@
 require_relative "SuppliesPackage"
 require_relative "Hangar"
 require_relative "Damage"
+require_relative "Weapon"
+require_relative "WeaponType"
+require_relative "Loot"
+require_relative "ShieldBooster"
+require_relative "CardDealer"
 
 module Deepspace
   class SpaceStation
@@ -22,8 +27,8 @@ module Deepspace
       @nMedals=0
       @shieldPower=s.shieldPower
       @pendingDamage=nil
-      @weapons=[]
-      @shieldBoosters=[]
+      @weapons=Array.new
+      @shieldBoosters=Array.new
       @hangar=nil
       assignFuelValue(s.fuelUnits)
     end
@@ -73,7 +78,13 @@ module Deepspace
     end
     
     def discardShieldBooster(i)
-      
+      if i>=0 && i<weapons.length
+        s=shieldBooster.remove(i)
+        if @pendingDamage!=nil
+          pendingDamage.discardShieldBooster
+          cleanPendingDamage
+        end
+      end
     end
     
     def discardShieldBoosterInHangar(i)
@@ -125,20 +136,13 @@ module Deepspace
       end
     end
     
-    def fire
-      factor=1
-      for i in 0..@weapons.length
-        w=@weapons.at(i)
-        factor=factor*w.useIt  
-      end
-      return @ammoPower*factor
-    end
-    
     def protection
       factor=1
-      for i in 0..@shieldBoosters.length
-        s=@shieldBoosters.at(i)
-        factor=factor*s.useIt  
+      if !@shieldBoosters.empty?
+        for i in 0..@shieldBoosters.length
+          s=@shieldBoosters.at(i)
+          factor=factor*s.useIt  
+        end
       end
       return @shieldPower*factor
     end
@@ -157,24 +161,23 @@ module Deepspace
       end
     end
     
-<<<<<<< HEAD
     def fire
       factor=1
-      print @weapons.to_s
-      for i in 0..@weapons.length
-        w=@weapons.at(i)
-        factor=factor*w.useIt  
+      if !@weapons.empty?
+        for i in 0..@weapons.length
+          w=@weapons.at(i)
+          factor=factor*w.useIt  
+        end
       end
-      return @ammoPower*factor
+      factor=factor*@ammoPower
+      return factor
     end
     
-=======
->>>>>>> 18eb021669a5ffd14348e30afebf67baf08fa59c
     def receiveShot(shot)
       myProtection=protection
-      @shieldpower=@shieldpower-@@SHIELDLOSSPERUNITSHOT*shot
-      @shieldpower=[0.0, @shieldpower].max
-      if @shieldpower>0.0
+      if myProtection>=shot
+        @shieldpower=@shieldpower-@@SHIELDLOSSPERUNITSHOT*shot
+        @shieldpower=[0.0, @shieldpower].max
         return ShotResult::RESIST
       else
         return ShotResult::DONOTRESIST
@@ -200,32 +203,33 @@ module Deepspace
     end
     
     def setLoot(loot)
-      dealer.instance
+      dealer=CardDealer.instance
+      
       h=loot.nHangars
       if h>0
         hangar=dealer.nextHangar
         receiveHangar(hangar)
       end
       
-      elements=loot.getNSupplies
+      elements=loot.nSupplies
       for i in 1..elements
-        sup=dealer.nextSupplies
+        sup=dealer.nextSuppliesPackage
         receiveSupplies(sup)
       end
       
-      elements=loot.getNWeapons
-      for i in 1..elements
+      elements=loot.nWeapons
+      for j in 1..elements
         weap=dealer.nextWeapon
-        receiveWeapons(weap)
+        receiveWeapon(weap)
       end
       
-      elements=loot.getNShields
-      for i in 1..elements
+      elements=loot.nShields
+      for k in 1..elements
         sh=dealer.nextShieldBooster
         receiveShieldBooster(sh)
       end
       
-      medals=loot.getNMedals
+      medals=loot.nMedals
       @nMedals=@nMedals+medals
     end
     
@@ -238,7 +242,7 @@ module Deepspace
     end
     
     def to_s
-      cad= "La estacion espacial tiene: \n*Una potencia de disparo de #{@ammoPower}\n*#{@fuelUnits} Unidades de combustible\n*"+
+      cad= "\nEsta estacion espacial tiene: \n*Una potencia de disparo de #{@ammoPower}\n*#{@fuelUnits} Unidades de combustible\n*"+
         "#{@nMedals} medallas\n*Una potencia de escudo de #{@shieldPower}\nSu nombre es: #{@name}"+
         "\nARMAS:\n"
         @weapons.each{ |arma|
