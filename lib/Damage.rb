@@ -21,7 +21,7 @@ module Deepspace
     end
     
     def self.newNumericWeapons(w,s)
-      self.new(w,s,[])
+      self.new(w,s,nil)
     end
     
     def self.newSpecificWeapons(wl,s)
@@ -77,8 +77,12 @@ module Deepspace
     end
     
     def hasNoEffect
-      if @nShields==0 && (@nWeapons==0 || @weapons.length==0)
-        return true
+      if @nShields==0 
+        if @weapons==nil
+          return @nWeapons==0
+        else
+          return @weapons.length==0
+        end
       else
         return false
       end

@@ -3,6 +3,8 @@
 
 #encoding:utf-8
 
+require_relative "ShieldToUI"
+
 module Deepspace
   class ShieldBooster
    attr_reader :boost, :uses, :name
@@ -16,9 +18,7 @@ module Deepspace
    end
     
    def self.newCopy(s)
-      @name = s.name
-      @boost = s.boost
-      @uses = s.uses
+     new(s.name, s.boost, s.uses)
    end
    
    def getUIversion

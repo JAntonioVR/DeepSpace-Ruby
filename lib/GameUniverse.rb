@@ -63,7 +63,7 @@ module Deepspace
           combatResult=CombatResult::ENEMYWINS
         else
           @currentStation.move
-          combatResult=CombatResult::STATIONSCAPES
+          combatResult=CombatResult::STATIONESCAPES
         end
       else
         aLoot=@currentEnemy.loot
@@ -71,7 +71,6 @@ module Deepspace
         combatResult=CombatResult::STATIONWINS
       end
       @gameState.next(@turns, @spaceStations.length)
-      puts combatResult
       return combatResult
     end
    
@@ -107,7 +106,7 @@ module Deepspace
     end
     
     def getUIversion
-      return GameUniverseToUI.new(self)
+      return GameUniverseToUI.new(@currentStation,@currentEnemy)
     end
     
     def haveAWinner
@@ -133,10 +132,6 @@ module Deepspace
         @currentEnemy=dealer.nextEnemy
         @gameState.next(@turns,names.length)
       end
-      @spaceStations.each do |estacion|
-        puts estacion.to_s
-      end
-      puts @currentEnemy.to_s
     end
     
     def mountShieldBooster(i)
@@ -152,8 +147,8 @@ module Deepspace
     end
     
     def nextTurn
-      gameState=@gameState.state
-      if(gameState==GameState::AFTERCOMBAT)
+      state=@gameState.state
+      if(state==GameState::AFTERCOMBAT)
         stationState=@currentStation.validState
         if(stationState)
           @currentStation=@spaceStations[(@currentStationIndex+1)%@spaceStations.length]
@@ -168,10 +163,14 @@ module Deepspace
       return false
     end
     
+    def state
+      return @gameState.state
+    end
+    
     def to_s
       cad="\nEstacion que tiene el turno: "+@currentStation.to_s+"\n\nResto de estaciones:"
       @spaceStations.each{ |estacion|
-        cad+=estacion.to_s
+        cad+=estacion.to_s if estacion!=@currentStation
       }
       cad+="\n\nEnemigo: "+@currentEnemy.to_s+"Estado: "+@gameState.state.to_s+"\nNumero de turnos:+#{@turns}."
       return cad

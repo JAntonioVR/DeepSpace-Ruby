@@ -6,6 +6,7 @@
 require_relative "WeaponType"
 require_relative "Weapon"
 require_relative "ShieldBooster"
+require_relative "HangarToUI"
 
 module Deepspace
   class Hangar
@@ -22,10 +23,10 @@ module Deepspace
     def self.newCopy(h)
       hangarAux=new(h.maxElements)
       h.shieldBoosters.each { |potenciador|
-        hangarAux.shieldBoosters.push(potenciador)
+        hangarAux.addShieldBooster(potenciador)
       }
       h.weapons.each{ |arma|
-        hangarAux.weapons.push(arma)
+        hangarAux.addWeapon(arma)
       }
       return hangarAux
     end

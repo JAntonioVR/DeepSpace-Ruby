@@ -136,7 +136,27 @@ module Deepspace
       spaceStation.shieldBoosters.at(0).useIt
       spaceStation.cleanUpMountedItems
       #puts"\n\nDespues de unos usos y una limpieza:"
+      
+      spaceStation.discardHangar
+      
+      #puts spaceStation.to_s
+      
+      loot=Loot.new(2,2,0,1,2)
+      spaceStation.setLoot(loot)
+      #puts spaceStation.to_s
+      puts "AmmoPower: #{spaceStation.ammoPower}"
+      puts "\n FUEGOOOO #{spaceStation.fire}"
+      puts "\n PROTECCIOOON #{spaceStation.protection}"
+      #puts spaceStation.to_s
+      spaceStation.mountShieldBooster(0)
+      spaceStation.mountWeapon(0)
+      spaceStation.setPendingDamage(Damage.newSpecificWeapons([WeaponType::PLASMA, WeaponType::LASER, WeaponType::MISSILE], 3))
+      #puts spaceStation.to_s
+      spaceStation.discardShieldBooster(0)
+      spaceStation.discardWeapon(0)
       puts spaceStation.to_s
+      puts spaceStation.receiveShot(10)
+      
       
       puts "===================================================================="
       puts "\nPrueba de GameUniverse"
@@ -144,10 +164,15 @@ module Deepspace
       nombres=["Carlos","Juan"]
       gameUniverse.init(nombres)
       puts gameUniverse.to_s
-      gameUniverse.combat
+      puts gameUniverse.combat
       puts "===================================================================="
       puts gameUniverse.to_s
-      
+      if gameUniverse.nextTurn
+        puts "TURNO SIGUIENTE"
+      else
+        puts "MISMO TURNO"
+      end
+
     end
   end
   

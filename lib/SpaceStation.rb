@@ -10,6 +10,7 @@ require_relative "WeaponType"
 require_relative "Loot"
 require_relative "ShieldBooster"
 require_relative "CardDealer"
+require_relative "SpaceStationToUI"
 
 module Deepspace
   class SpaceStation
@@ -79,7 +80,7 @@ module Deepspace
     
     def discardShieldBooster(i)
       if i>=0 && i<weapons.length
-        s=shieldBooster.remove(i)
+        s=shieldBoosters.delete_at(i)
         if @pendingDamage!=nil
           pendingDamage.discardShieldBooster
           cleanPendingDamage
@@ -95,7 +96,7 @@ module Deepspace
     
     def discardWeapon(i)
       if i>=0 && i<@weapons.length
-        w=@weapons.remove(i)
+        w=@weapons.delete_at(i)
         if @pendingDamage!=nil
           @pendingDamage.discardWeapon(w)
           cleanPendingDamage
@@ -139,7 +140,7 @@ module Deepspace
     def protection
       factor=1
       if !@shieldBoosters.empty?
-        for i in 0..@shieldBoosters.length
+        for i in 0..@shieldBoosters.length-1
           s=@shieldBoosters.at(i)
           factor=factor*s.useIt  
         end
@@ -164,9 +165,9 @@ module Deepspace
     def fire
       factor=1
       if !@weapons.empty?
-        for i in 0..@weapons.length
+        for i in 0..@weapons.length-1
           w=@weapons.at(i)
-          factor=factor*w.useIt  
+          factor=factor*w.useIt
         end
       end
       factor=factor*@ammoPower
@@ -176,8 +177,8 @@ module Deepspace
     def receiveShot(shot)
       myProtection=protection
       if myProtection>=shot
-        @shieldpower=@shieldpower-@@SHIELDLOSSPERUNITSHOT*shot
-        @shieldpower=[0.0, @shieldpower].max
+        @shieldPower=@shieldPower-@@SHIELDLOSSPERUNITSHOT*shot
+        @shieldPower=[0.0, @shieldPower].max
         return ShotResult::RESIST
       else
         return ShotResult::DONOTRESIST
@@ -230,7 +231,7 @@ module Deepspace
       end
       
       medals=loot.nMedals
-      @nMedals=@nMedals+medals
+      @nMedals+=medals
     end
     
     def setPendingDamage(d)

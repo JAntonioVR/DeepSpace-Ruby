@@ -3,6 +3,8 @@
 
 #encoding:utf-8
 
+require_relative "WeaponToUI"
+
 require_relative "WeaponType"
 
 module Deepspace
@@ -17,9 +19,7 @@ module Deepspace
     end
    
     def self.newCopy(s)
-      @name = s.name
-      @type = s.type
-      @uses = s.uses
+      new(s.name,s.type, s.uses)
     end
     
     def getUIversion
