@@ -21,6 +21,15 @@ module Deepspace
       LASER=Type.new(2.0)
       MISSILE=Type.new(3.0)
       PLASMA=Type.new(4.0)
+      
+      def to_s
+        if @power==2.0
+          return cad="LASER"
+          elsif @power==3.0
+            return cad="MISSILE"
+        else return cad="PLASMA"
+        end
+      end
 
   end
 

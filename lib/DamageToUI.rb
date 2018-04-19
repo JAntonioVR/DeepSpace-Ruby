@@ -22,14 +22,22 @@ class DamageToUI
   public
   
   def getWeaponInfo() 
-    out = "";
+    cad = "";
     
     if (nWeapons == -1) then
-      out += "[" + @weapons.join(", ") + "]"
+      @weapons.each { |tipo|
+          if(tipo==WeaponType::MISSILE)
+            cad=cad+"MISSILE  "
+          elsif(tipo==WeaponType::PLASMA)
+            cad=cad+"PLASMA  "
+          else
+            cad=cad+"LASER  "
+          end
+        }
     else
-      out += @nWeapons.to_s
+      cad += @nWeapons.to_s
     end
-    return out
+    return cad
   end
     
   def to_s

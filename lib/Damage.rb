@@ -72,7 +72,7 @@ module Deepspace
     
     def discardShieldBooster
       if @nShields>0
-        @nShields-=1
+        @nShields=@nShields-1
       end
     end
     

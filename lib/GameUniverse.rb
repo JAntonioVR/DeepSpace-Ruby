@@ -40,34 +40,34 @@ module Deepspace
     def combatGo(station, enemy)
       ch=@dice.firstShot
       if(ch==GameCharacter::ENEMYSTARSHIP)
-          fire=@currentEnemy.fire
-          result=@currentStation.receiveShot(fire)
+          fire=enemy.fire
+          result=station.receiveShot(fire)
             if(result==ShotResult::RESIST)
-              fire=@currentStation.fire
-              result=@currenEnemy.receiveShot(fire)
+              fire=station.fire
+              result=enemy.receiveShot(fire)
               enemyWins=(result==ShotResult::RESIST)
             else
               enemyWins=true
             end
       else
-          fire=@currentStation.fire
-          result=@currentEnemy.receiveShot(fire)
+          fire=station.fire
+          result=enemy.receiveShot(fire)
           enemyWins=(result==ShotResult::RESIST)
       end
       if enemyWins
-        s=@currentStation.getSpeed
+        s=station.getSpeed
         moves=@dice.spaceStationMoves(s)
         if(!moves)
-          damage=@currentEnemy.damage
-          @currentStation.setPendingDamage(damage)
+          damage=enemy.damage
+          station.setPendingDamage(damage)
           combatResult=CombatResult::ENEMYWINS
         else
-          @currentStation.move
+          station.move
           combatResult=CombatResult::STATIONESCAPES
         end
       else
-        aLoot=@currentEnemy.loot
-        @currentStation.setLoot(aLoot)
+        aLoot=enemy.loot
+        station.setLoot(aLoot)
         combatResult=CombatResult::STATIONWINS
       end
       @gameState.next(@turns, @spaceStations.length)
@@ -101,7 +101,7 @@ module Deepspace
     
     def discardWeaponInHangar(i)
       if @gameState.state==GameState::INIT || @gameState.state==GameState::AFTERCOMBAT
-        @currentStation.discardWeaponInHangar
+        @currentStation.discardWeaponInHangar(i)
       end
     end
     

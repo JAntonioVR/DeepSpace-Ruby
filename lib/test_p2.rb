@@ -51,14 +51,14 @@ module Deepspace
       damage3=damage1.adjust(hangar1.weapons, hangar1.shieldBoosters)
       puts "\ndamage1 ajustado:\n"
       puts damage3.to_s
-      damage3=damage2.adjust(hangar1.weapons, hangar1.shieldBoosters)
+      #damage3=damage2.adjust(hangar1.weapons, hangar1.shieldBoosters)
       puts "\ndamage2 ajustado:\n"
       puts damage3.to_s
       
       damage1.discardWeapon(arma1)
-      damage2.discardWeapon(arma1)#Si se cambia por arma3 no hace nada
+      #damage2.discardWeapon(arma1)#Si se cambia por arma3 no hace nada
       damage1.discardShieldBooster
-      damage2.discardShieldBooster
+      #damage2.discardShieldBooster
       #puts"damage1 y damage2 tras algunos descartes:"
       #puts damage1.to_s
       #puts damage2.to_s
@@ -96,6 +96,7 @@ module Deepspace
       puts"\n\nPrueba de SpaceStation"
       suppliesPackage=SuppliesPackage.new(30,150,25)
       suppliesPackage1=SuppliesPackage.new(2,20,17)
+      suppliesPackage2=SuppliesPackage.new(999,999,999)
       
       spaceStation=SpaceStation.new("Skylab",suppliesPackage)
       
@@ -137,7 +138,7 @@ module Deepspace
       spaceStation.cleanUpMountedItems
       #puts"\n\nDespues de unos usos y una limpieza:"
       
-      spaceStation.discardHangar
+      #spaceStation.discardHangar
       
       #puts spaceStation.to_s
       
@@ -164,9 +165,15 @@ module Deepspace
       nombres=["Carlos","Juan"]
       gameUniverse.init(nombres)
       puts gameUniverse.to_s
-      puts gameUniverse.combat
+      
+      enemyStarShip2=EnemyStarShip.new("DeadStar",999,998,loot,damage2)
+      enemyStarShip3=EnemyStarShip.new("Patata",0.1,1,loot,damage2)
+      spaceStation2=SpaceStation.new("Chetada",suppliesPackage2)
+      result=gameUniverse.combatGo(spaceStation2,enemyStarShip2)
+      puts result
+      puts damage2.getUIversion.to_s
       puts "===================================================================="
-      puts gameUniverse.to_s
+      #puts gameUniverse.to_s
       if gameUniverse.nextTurn
         puts "TURNO SIGUIENTE"
       else
