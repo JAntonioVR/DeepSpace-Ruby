@@ -8,7 +8,7 @@ class WeaponToUI
     attr_reader :type, :power, :uses
     
     def initialize(w) 
-        @type=w.name();
+        @type=w.type();
         @power=w.power();
         @uses=w.uses();
     end  

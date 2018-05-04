@@ -96,7 +96,7 @@ module Deepspace
       puts"\n\nPrueba de SpaceStation"
       suppliesPackage=SuppliesPackage.new(30,150,25)
       suppliesPackage1=SuppliesPackage.new(2,20,17)
-      suppliesPackage2=SuppliesPackage.new(999,999,999)
+      suppliesPackage2=SuppliesPackage.new(3,3,3)
       
       spaceStation=SpaceStation.new("Skylab",suppliesPackage)
       
