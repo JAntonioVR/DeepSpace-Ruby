@@ -8,16 +8,18 @@ require_relative "LootToUI"
 module Deepspace
   class Loot
     
-    attr_reader :nSupplies, :nWeapons, :nShields, :nHangars, :nMedals
+    attr_reader :nSupplies, :nWeapons, :nShields, :nHangars, :nMedals, :getEfficient, :spaceCity
     
     public
     
-    def initialize(nsu, nw, nsh, nh, nm)
+    def initialize(nsu, nw, nsh, nh, nm, ef, city)
       @nSupplies = nsu
       @nWeapons = nw
       @nShields = nsh
       @nHangars = nh
       @nMedals = nm
+      @getEfficient=ef
+      @spaceCity=city
     end
     
     def getUIversion

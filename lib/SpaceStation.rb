@@ -232,6 +232,15 @@ module Deepspace
       
       medals=loot.nMedals
       @nMedals+=medals
+      
+      if loot.getEfficient
+        return Transformation::GETEFFICIENCE
+      elsif loot.spaceCity
+        return Transformation::SPACECITY
+      else
+        return Transformation::NOTRANSFORM
+      end
+      
     end
     
     def setPendingDamage(d)
