@@ -8,6 +8,8 @@ require_relative "ShotResult"
 require_relative "SpaceStation"
 require_relative "CardDealer"
 require_relative "EnemyStarShip"
+require_relative "PowerEfficientSpaceStation"
+require_relative "SpaceCity"
 
 module Deepspace
   
@@ -26,6 +28,7 @@ module Deepspace
       @currentStation=nil
       @spaceStations=Array.new
       @currentEnemy=nil
+      @haveSpaceCity=false
     end
     
     def combat
@@ -67,13 +70,23 @@ module Deepspace
         end
       else
         aLoot=enemy.loot
-        station.setLoot(aLoot)
+        transformacion=station.setLoot(aLoot)
+        if(transformacion==Transformation::GETEFFICIENCE)
+          makeStationEfficient
+        elsif(transformacion==Transformation::SPACECITY)
+          createSpaceCity
+        end
         combatResult=CombatResult::STATIONWINS
       end
       @gameState.next(@turns, @spaceStations.length)
       return combatResult
     end
-   
+    
+    def createSpaceCity
+      city=SpaceCity.new(@currentStation, @spaceStations)
+      @haveSpaceCity=true
+    end
+    
     def discardHangar
       if @gameState.state==GameState::INIT || @gameState.state==GameState::AFTERCOMBAT
         @currentStation.discardHangar
@@ -134,6 +147,13 @@ module Deepspace
       end
     end
     
+    def makeStationEfficient
+      @currentStation=PowerEfficientSpaceStation.new(@currentStation)
+      if(@dice.extraEfficiency==1)
+        @currentStation=BetaPowerEfficientSpaceStation.new(@currentStation)
+      end
+    end
+    
     def mountShieldBooster(i)
       if @gameState.state==GameState::INIT || @gameState.state==GameState::AFTERCOMBAT
         @currentStation.mountShieldBooster(i)
@@ -151,7 +171,9 @@ module Deepspace
       if(state==GameState::AFTERCOMBAT)
         stationState=@currentStation.validState
         if(stationState)
-          @currentStation=@spaceStations[(@currentStationIndex+1)%@spaceStations.length]
+          @currentStationIndex=(@currentStationIndex+1)%@spaceStations.length
+          @currentStation=@spaceStations[@currentStationIndex]
+          @turns++
           @currentStation.cleanUpMountedItems
           dealer=CardDealer.instance
           @currentEnemy=dealer.nextEnemy

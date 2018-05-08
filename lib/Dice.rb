@@ -15,7 +15,7 @@ module Deepspace
       @NSHIELDSPROB = 0.25;
       @NWEAPONSPROB = 0.33;
       @FIRSTSHOTPROB = 0.5;
-      
+      @EXTRAEFFICIENCYPROB = 0.8;
     end
     
     def initWithNHangars
@@ -43,6 +43,15 @@ module Deepspace
     def initWithNShield
       prob = rand
       if prob < @NSHIELDSPROB
+        return 0
+      else
+        return 1
+      end
+    end
+    
+    def extraEfficiency
+      prob = rand
+      if prob < @EXTRAEFFICIENCYPROB
         return 0
       else
         return 1
