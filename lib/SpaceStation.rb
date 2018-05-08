@@ -11,6 +11,7 @@ require_relative "Loot"
 require_relative "ShieldBooster"
 require_relative "CardDealer"
 require_relative "SpaceStationToUI"
+require_relative "Transformation"
 
 module Deepspace
   class SpaceStation
@@ -48,6 +49,18 @@ module Deepspace
     end
     
     public
+    
+    def createStation(station)
+      @name=station.name
+      @ammoPower=station.ammoPower
+      @nMedals=station.nMedals
+      @shieldPower=station.shieldPower
+      @pendingDamage=station.pendingDamage
+      @weapons=station.weapons
+      @shieldBoosters=station.shieldBoosters
+      @hangar=station.hangar
+      assignFuelValue(station.fuelUnits)
+    end
     
     def getUIversion
       return SpaceStationToUI.new(self)
