@@ -1,4 +1,8 @@
 
+#@author Pedro Pablo Ruiz Huertas y Juan Antonio Villegas Recio
+
+#encoding:utf-8
+
 require_relative "GameUniverseToUI"
 require_relative "GameStateController"
 require_relative "Dice"
@@ -9,6 +13,7 @@ require_relative "SpaceStation"
 require_relative "CardDealer"
 require_relative "EnemyStarShip"
 require_relative "PowerEfficientSpaceStation"
+require_relative "BetaPowerEfficientSpaceStation"
 require_relative "SpaceCity"
 
 module Deepspace
@@ -73,18 +78,31 @@ module Deepspace
         transformacion=station.setLoot(aLoot)
         if(transformacion==Transformation::GETEFFICIENCE)
           makeStationEfficient
+          combatResult=CombatResult::STATIONWINSANDCONVERTS
         elsif(transformacion==Transformation::SPACECITY)
           createSpaceCity
+          combatResult=CombatResult::STATIONWINSANDCONVERTS
+        else
+          combatResult=CombatResult::STATIONWINS
         end
-        combatResult=CombatResult::STATIONWINS
       end
       @gameState.next(@turns, @spaceStations.length)
       return combatResult
     end
     
     def createSpaceCity
-      city=SpaceCity.new(@currentStation, @spaceStations)
-      @haveSpaceCity=true
+      if !@haveSpaceCity
+        vec=[]
+        @spaceStations.each{ |station|
+          if(station!=@currentStation)
+            vec.push(station)
+          end
+        }
+        @currentStation=SpaceCity.new(@currentStation, vec)
+        @spaceStations[@currentStationIndex]=@currentStation
+        @haveSpaceCity=true
+      end
+      
     end
     
     def discardHangar
@@ -149,9 +167,11 @@ module Deepspace
     
     def makeStationEfficient
       @currentStation=PowerEfficientSpaceStation.new(@currentStation)
-      if(@dice.extraEfficiency==1)
+      if @dice.extraEfficiency
         @currentStation=BetaPowerEfficientSpaceStation.new(@currentStation)
       end
+      
+      @spaceStations[@currentStationIndex]=@currentStation
     end
     
     def mountShieldBooster(i)

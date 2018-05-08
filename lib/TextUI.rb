@@ -57,6 +57,14 @@ class TextUI
               pause("\n Has logrado escapar. Eres una Gallina Espacial.")
             when DS::CombatResult::STATIONWINS 
               pause("\n Has GANADO el combate. Disfruta de tu botín.")
+            when DS::CombatResult::STATIONWINSANDCONVERTS
+              if @gameUI.currentEnemy.loot.getEfficient
+                pause("\n Has GANADO el combate y tu estación ahora es más eficiente. Disfruta de tu botín")
+              else
+                pause("\n Has GANADO el combate y tu estación se ha convertido en una ciudad espacial. Disfruta de tu botín")
+              end
+          
+          
               if(@controller.haveAWinner()) then
                 pause("\n\n **** **** ****  HAS GANADO LA PARTIDA  **** **** ****\n")
                 exit(0)

@@ -2,6 +2,9 @@
 #@author Pedro Pablo Ruiz Huertas y Juan Antonio Villegas Recio
 
 #encoding:utf-8
+require_relative "Transformation"
+require_relative "SpaceStation"
+
 
 module Deepspace
   class PowerEfficientSpaceStation < SpaceStation
@@ -22,40 +25,18 @@ module Deepspace
       return factor
     end
     
-    def setLoot
-      dealer=CardDealer.instance
-      
-      h=loot.nHangars
-      if h>0
-        hangar=dealer.nextHangar
-        receiveHangar(hangar)
-      end
-      
-      elements=loot.nSupplies
-      for i in 1..elements
-        sup=dealer.nextSuppliesPackage
-        receiveSupplies(sup)
-      end
-      
-      elements=loot.nWeapons
-      for j in 1..elements
-        weap=dealer.nextWeapon
-        receiveWeapon(weap)
-      end
-      
-      elements=loot.nShields
-      for k in 1..elements
-        sh=dealer.nextShieldBooster
-        receiveShieldBooster(sh)
-      end
-      
-      medals=loot.nMedals
-      @nMedals+=medals
+    def setLoot(loot)
+      super
       if loot.getEfficient
-        return Transformation::GETEFFICIENCE
+        return Transformation::GETEFFICIENT
       else
         return Transformation::NOTRANSFORM
       end
     end
+    
+    def to_s
+      return "POWER EFFICIENT SPACE STATION"+super
+    end
+    
   end
 end

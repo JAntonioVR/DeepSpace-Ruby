@@ -15,7 +15,7 @@ require_relative "SpaceCity"
 
 module Deepspace
   class TestP4
-    def self.main
+    def self.main     
       weapons=[]
       #weapons.push(Weapon.new("Láser infinito",WeaponType::LASER,100))
       #weapons.push(Weapon.new("Láser ACME",WeaponType::LASER,1))
@@ -46,16 +46,13 @@ module Deepspace
       collaborators=[]
       collaborators.push(SpaceStation.new("Juan",suppliesPackages[0]))
       collaborators.push(SpaceStation.new("Antonio",suppliesPackages[1]))
-      base=SpaceStation.new("BASE",suppliesPackages[2])
-      
 
-      #puts base.to_s    
+      
+    
 
       
       transformLoot1=Loot.new(1,1,1,1,1,false,true)
-      badLoot=Loot.new(1,1,1,0,1,false,false)
-      goodLoot=Loot.new(2,2,2,1,2,false,false)
-      
+=begin      
       collaborators.each{ |estacion|
         estacion.setLoot(goodLoot)
       }
@@ -67,7 +64,24 @@ module Deepspace
       puts city.fire
       puts city.protection
       
-      puts city.to_s
+      puts city.to_s    
+      gameUniverse=GameUniverse.new
+      nombres=["Juan", "Antonio"]
+      gameUniverse.init(nombres)
+      #puts gameUniverse.to_s
+      gameUniverse.makeStationEfficient
+      #puts gameUniverse.to_s
+=end      
+      transformLoot0=Loot.new(1,1,1,0,1,true,false)
+      base=SpaceStation.new("BASE",suppliesPackages[2])
+      if base.setLoot(transformLoot0)==Transformation::GETEFFICIENT
+        base=BetaPowerEfficientSpaceStation.new(base)
+      end
+      puts base.to_s
+
+      
+      
+      
       
     end
     

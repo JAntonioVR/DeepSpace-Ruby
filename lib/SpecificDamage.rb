@@ -1,7 +1,7 @@
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
 
+#@author Pedro Pablo Ruiz Huertas y Juan Antonio Villegas Recio
+
+#encoding:utf-8
 require_relative "Damage"
 
 module Deepspace
@@ -52,7 +52,6 @@ module Deepspace
       return @weapons.length==0 && super
     end
     
-    private
     def arrayContainsType(w,t)
       res=-1
       i=0
@@ -63,7 +62,10 @@ module Deepspace
       return res
     end
     
-    public
+    def getUIversion
+      return SpecificDamageToUI.new(self)
+    end
+    
     @override
     def to_s
       cad= "Dano Especifico: #{@nShields} escudos y los siguientes tipos: "
@@ -78,6 +80,9 @@ module Deepspace
       }
       return cad  
     end
+    
+    public :adjust, :discardWeapon, :hasNoEffect, :getUIversion, :to_s
+    private :arrayContainsType
     
   end
 end

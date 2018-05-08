@@ -247,7 +247,7 @@ module Deepspace
       @nMedals+=medals
       
       if loot.getEfficient
-        return Transformation::GETEFFICIENCE
+        return Transformation::GETEFFICIENT
       elsif loot.spaceCity
         return Transformation::SPACECITY
       else
@@ -265,9 +265,9 @@ module Deepspace
     end
     
     def to_s
-      cad= "\nEsta estacion espacial tiene: \n*Una potencia de disparo de #{@ammoPower}\n*#{@fuelUnits} Unidades de combustible\n*"+
-        "#{@nMedals} medallas\n*Una potencia de escudo de #{@shieldPower}\nSu nombre es: #{@name}"+
-        "\nARMAS:\n"
+      cad= "\n*Potencia de disparo: #{@ammoPower}\n*Potencia de escudo: #{@shieldPower}\n"+
+        "*#{@fuelUnits} Unidades de combustible\n*"+
+        "#{@nMedals} medallas\nNombre: #{@name}"+"\nARMAS:\n"
         @weapons.each{ |arma|
         cad+=arma.to_s
       }

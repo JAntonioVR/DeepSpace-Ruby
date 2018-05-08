@@ -12,7 +12,7 @@ module Deepspace
     
     public
     
-    def initialize(nsu, nw, nsh, nh, nm, ef, city)
+    def initialize(nsu, nw, nsh, nh, nm, ef=false, city=false)
       @nSupplies = nsu
       @nWeapons = nw
       @nShields = nsh

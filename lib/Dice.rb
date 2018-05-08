@@ -52,9 +52,9 @@ module Deepspace
     def extraEfficiency
       prob = rand
       if prob < @EXTRAEFFICIENCYPROB
-        return 0
+        return false
       else
-        return 1
+        return true
       end
     end
     
