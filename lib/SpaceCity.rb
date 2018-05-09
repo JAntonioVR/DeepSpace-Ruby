@@ -39,7 +39,7 @@ module Deepspace
     end
     
     def to_s
-      cad="ESTACION BASE:"+super+"\nCOLABORADORES:"
+      cad="CIUDAD ESPACIAL:\nESTACION BASE:"+super+"\nCOLABORADORES:"
       @collaborators.each { |colaborador|
         cad+=colaborador.to_s
       }

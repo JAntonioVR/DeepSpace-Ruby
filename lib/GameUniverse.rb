@@ -15,6 +15,7 @@ require_relative "EnemyStarShip"
 require_relative "PowerEfficientSpaceStation"
 require_relative "BetaPowerEfficientSpaceStation"
 require_relative "SpaceCity"
+require_relative "Transformation"
 
 module Deepspace
   
@@ -76,7 +77,7 @@ module Deepspace
       else
         aLoot=enemy.loot
         transformacion=station.setLoot(aLoot)
-        if(transformacion==Transformation::GETEFFICIENCE)
+        if(transformacion==Transformation::GETEFFICIENT)
           makeStationEfficient
           combatResult=CombatResult::STATIONWINSANDCONVERTS
         elsif(transformacion==Transformation::SPACECITY)
@@ -193,7 +194,7 @@ module Deepspace
         if(stationState)
           @currentStationIndex=(@currentStationIndex+1)%@spaceStations.length
           @currentStation=@spaceStations[@currentStationIndex]
-          @turns++
+          @turns+=1
           @currentStation.cleanUpMountedItems
           dealer=CardDealer.instance
           @currentEnemy=dealer.nextEnemy

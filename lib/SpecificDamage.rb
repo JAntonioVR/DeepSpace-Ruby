@@ -3,6 +3,7 @@
 
 #encoding:utf-8
 require_relative "Damage"
+require_relative "SpecificDamageToUI"
 
 module Deepspace
   class SpecificDamage < Damage

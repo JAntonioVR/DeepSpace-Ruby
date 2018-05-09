@@ -92,10 +92,10 @@ module Deepspace
     end
     
     def discardShieldBooster(i)
-      if i>=0 && i<weapons.length
-        s=shieldBoosters.delete_at(i)
+      if i>=0 && i<@shieldBoosters.length
+        s=@shieldBoosters.delete_at(i)
         if @pendingDamage!=nil
-          pendingDamage.discardShieldBooster
+          @pendingDamage.discardShieldBooster
           cleanPendingDamage
         end
       end
@@ -246,7 +246,7 @@ module Deepspace
       medals=loot.nMedals
       @nMedals+=medals
       
-      if loot.getEfficient
+      if loot.efficient
         return Transformation::GETEFFICIENT
       elsif loot.spaceCity
         return Transformation::SPACECITY

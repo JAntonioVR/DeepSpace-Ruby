@@ -2,6 +2,9 @@
 #@author Pedro Pablo Ruiz Huertas y Juan Antonio Villegas Recio
 
 #encoding:utf-8
+require_relative "Damage"
+require_relative "NumericDamageToUI"
+
 module Deepspace
   class NumericDamage < Damage
 

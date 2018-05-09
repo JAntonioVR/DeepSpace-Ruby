@@ -51,7 +51,7 @@ module Deepspace
     
 
       
-      transformLoot1=Loot.new(1,1,1,1,1,false,true)
+      transformLoot1=Loot.new(1,1,1,1,1,false,false)
 =begin      
       collaborators.each{ |estacion|
         estacion.setLoot(goodLoot)
@@ -64,23 +64,27 @@ module Deepspace
       puts city.fire
       puts city.protection
       
-      puts city.to_s    
+=end      puts city.to_s    
       gameUniverse=GameUniverse.new
       nombres=["Juan", "Antonio"]
       gameUniverse.init(nombres)
       #puts gameUniverse.to_s
-      gameUniverse.makeStationEfficient
+      #gameUniverse.createSpaceCity
       #puts gameUniverse.to_s
-=end      
-      transformLoot0=Loot.new(1,1,1,0,1,true,false)
+     
+=begin      transformLoot0=Loot.new(1,1,1,0,1,true,false)
       base=SpaceStation.new("BASE",suppliesPackages[2])
       if base.setLoot(transformLoot0)==Transformation::GETEFFICIENT
         base=BetaPowerEfficientSpaceStation.new(base)
       end
       puts base.to_s
-
+=end
       
+      enemy=EnemyStarShip.new("Malo",1,2,transformLoot1, NumericDamage.new(1,1))
+      station=SpaceStation.new("Juan", SuppliesPackage.new(500,50,500))
       
+      puts gameUniverse.combatGo(station, enemy)
+      puts gameUniverse.to_s
       
       
     end
