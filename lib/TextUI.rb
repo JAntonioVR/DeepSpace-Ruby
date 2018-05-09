@@ -58,7 +58,7 @@ class TextUI
             when DS::CombatResult::STATIONWINS 
               pause("\n Has GANADO el combate. Disfruta de tu botín.")
             when DS::CombatResult::STATIONWINSANDCONVERTS
-              if @gameUI.currentEnemy.loot.getEfficient
+              if @gameUI.currentEnemy.loot.efficient
                 pause("\n Has GANADO el combate y tu estación ahora es más eficiente. Disfruta de tu botín")
               else
                 pause("\n Has GANADO el combate y tu estación se ha convertido en una ciudad espacial. Disfruta de tu botín")
