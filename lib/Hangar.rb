@@ -50,11 +50,11 @@ module Deepspace
     end
     
     def removeWeapon(w)
-      return weapons.delete_at(w)
+      return @weapons.delete_at(w)
     end
     
     def removeShieldBooster(s)
-      return shieldBoosters.delete_at(s)
+      return @shieldBoosters.delete_at(s)
     end
     
     def to_s
